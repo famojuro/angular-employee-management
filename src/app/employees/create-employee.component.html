@@ -1,0 +1,97 @@
+<form #employeeForm="ngForm" (ngSubmit)="saveEmployee(employeeForm)">
+  <div class="card mt-2">
+    <div class="card-heading bg-primary">
+      <h3 class="card-title">Create Employee</h3>
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        <label for="fullName" class="form-label">Full Name</label>
+        <input type="text" id="fullName" name="fullName" [(ngModel)]="employeeModel.name" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" id="email" name="email" [(ngModel)]="employeeModel.email"  class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="employeeModel.phoneNumber"
+          class="form-control">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Contact Preference</label>
+        <div class="form-control">
+          <label class="form-check-inline">
+            <input type="radio" value="Phone" class="form-check-input" name="contactPreference"
+             [(ngModel)]="employeeModel.contactPreference">
+            Phone
+          </label>
+          <label class="form-check-inline">
+            <input type="radio" value="Email" class="form-check-input" name="contactPreference"
+              [(ngModel)]="employeeModel.contactPreference">
+            Email
+          </label>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Gender</label>
+        <div class="form-control">
+          <label class="form-check-inline">
+            <input type="radio" value="male" class="form-check-input" name="gender"
+              [(ngModel)]="employeeModel.gender">
+            Male
+          </label>
+          <label class="form-check-inline">
+            <input type="radio" value="female" class="form-check-input" name="gender"
+              [(ngModel)]="employeeModel.gender">
+            Female
+          </label>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <div class="form-control">
+          <label class="form-check-inline">
+            <input type="checkbox" class="form-check-input" name="isActive"
+              [(ngModel)]="employeeModel.isActive">
+            IsActive
+          </label>
+        </div>
+      </div>
+      <div class="mb-3">
+          <label for="department" class="form-check-inline">Department</label>
+        <select id="department" name="department" [(ngModel)]="employeeModel.department" class="form-select">
+          <option *ngFor="let department of departments" [value]="department.id">{{department.name}}</option>
+        </select>
+      </div>
+      <div class="row">
+        <div class="mb-3 col-md-5">
+          <label for="dateOfBirth" class="form-label">Date of Birth</label>
+          <input type="text" id="dateOfBirth" name="dateOfBirth"
+                 placement="right"
+                 placeholder="Date of Birth"
+                 [(ngModel)]="employeeModel.dateOfBirth"
+                 bsDatepicker
+                 [bsConfig]="datePickerConfig"
+                 class="form-control">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="photoPath" class="form-label">Photo Path</label>
+        <input type="text" id="photoPath" name="phoneNumber" [(ngModel)]="employeeModel.photoPath"
+               class="form-control">
+      </div>
+      <div class="input-group">
+        <button type="button" (click)="togglePhotoPreview()"
+                class="btn btn-primary">{{previewPhoto? "Hide ": "Show "}} Preview</button>
+      </div>
+      <div class="input-group mb-3">
+        <img [src]="employeeModel.photoPath" height="200" width="200" *ngIf="previewPhoto">
+      </div>
+  </div>
+  <div class="card-footer">
+    <button type="submit" class="btn btn-primary">Save</button>
+  </div>
+</div>
+</form>
+
+Angular Generated Form Model : {{employeeForm.value | json}}
+
