@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Employee } from '../models/employee.model';
 
 @Component({
-  templateUrl: './list-employees.component.html',
-  styleUrls: ['./list-employees.component.css']
+  templateUrl: './employee-list.component.html',
+  styleUrls: ['./employee-list.component.css']
 })
-export class ListEmployeesComponent implements OnInit {
+export class EmployeeListComponent implements OnInit {
   employees : Array<Employee> = [
     {
       id: 1,
@@ -41,7 +41,6 @@ export class ListEmployeesComponent implements OnInit {
       photoPath: 'assets/images/john.png'
     },
   ]
-
 
   constructor() { }
 

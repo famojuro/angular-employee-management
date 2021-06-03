@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {BsDatepickerConfig} from "ngx-bootstrap/datepicker";
 
 import { Employee } from '../models/employee.model';
@@ -13,7 +13,7 @@ import { Department } from "../models/department.model";
 export class CreateEmployeeComponent implements OnInit {
   previewPhoto = false;
   datePickerConfig: Partial<BsDatepickerConfig>
-  employeeModel = new Employee;
+  employeeForm: FormGroup
   departments: Array<Department> = [
     {id: 1, name: 'Help Desk'},
     {id: 2, name: 'HR'},
@@ -31,11 +31,28 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.employeeModel.department = '';
+    this.employeeForm = new FormGroup({
+      fullName: new FormControl(),
+      email: new FormControl(),
+      skills: new FormGroup({
+        skillName: new FormControl(),
+        experienceInYears : new FormControl(),
+        proficiency: new FormControl()
+      }),
+      gender: new FormControl(),
+      phoneNumber: new FormControl(),
+      contactPreference: new FormControl(),
+      dateOfBirth: new FormControl(),
+      department: new FormControl(),
+      isActive: new FormControl(),
+      photoPath: new FormControl()
+    });
   }
 
-  saveEmployee(employeeForm: NgForm): void {
-    console.log(employeeForm.value);
+  saveEmployee(): void {
+    console.log(this.employeeForm.value)
+
+    console.log(this.employeeForm.controls.fullName.touched)
   }
 
   togglePhotoPreview() {
