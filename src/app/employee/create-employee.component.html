@@ -9,15 +9,15 @@
         <input type="text" id="fullName"
                class="form-control" formControlName="fullName" [ngClass]="{'has-validation': employeeForm.get('fullName').errors &&
        (employeeForm.get('fullName').touched || employeeForm.get('fullName').dirty)}">
-     <span class="form-text" *ngIf="employeeForm.get('fullName').errors &&
+     <div *ngIf="employeeForm.get('fullName').errors &&
          (employeeForm.get('fullName').touched) || employeeForm.get('fullName').dirty">
-          <span class="text-danger" *ngIf="employeeForm.get('fullName').errors.required">
+          <span class="text-danger" *ngIf="employeeForm.get('fullName').hasError('required')">
           fullName is required
         </span>
-        <span class="text-danger" *ngIf="employeeForm.get('fullName').errors.minlength">
+        <span class="text-danger" *ngIf="employeeForm.get('fullName').hasError('minlength')">
           fullName should be at least 2 characters
         </span>
-     </span>
+     </div>
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
