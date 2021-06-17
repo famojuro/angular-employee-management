@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BsDatepickerConfig} from "ngx-bootstrap/datepicker";
 
 import { Employee } from '../models/employee.model';
@@ -10,10 +10,11 @@ import { Department } from "../models/department.model";
   templateUrl: './create-employee.component.html',
   styleUrls: ['./create-employee.component.css']
 })
+
 export class CreateEmployeeComponent implements OnInit {
+  employeeForm: FormGroup;
   previewPhoto = false;
   datePickerConfig: Partial<BsDatepickerConfig>
-  employeeForm: FormGroup
   departments: Array<Department> = [
     {id: 1, name: 'Help Desk'},
     {id: 2, name: 'HR'},
@@ -21,7 +22,7 @@ export class CreateEmployeeComponent implements OnInit {
     {id: 4, name: 'Payroll'}
   ]
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder) {
     this.datePickerConfig = Object.assign({}, {
       containerClass: 'theme-dark-blue',
       isAnimated: true,
@@ -31,22 +32,42 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.employeeForm = new FormGroup({
-      fullName: new FormControl(),
-      email: new FormControl(),
-      skills: new FormGroup({
-        skillName: new FormControl(),
-        experienceInYears : new FormControl(),
-        proficiency: new FormControl()
+    this.employeeForm = this.formBuilder.group({
+      fullName: ['', [Validators.required, Validators.minLength(2)] ],
+      email:[''],
+      skills: this.formBuilder.group({
+        skillName: [''],
+        experienceInYears : [''],
+        proficiency: ['']
       }),
-      gender: new FormControl(),
-      phoneNumber: new FormControl(),
-      contactPreference: new FormControl(),
-      dateOfBirth: new FormControl(),
-      department: new FormControl(),
-      isActive: new FormControl(),
-      photoPath: new FormControl()
+      gender: [''],
+      phoneNumber: [''],
+      contactPreference: [''],
+      dateOfBirth: [''],
+      department: [''],
+      isActive: [''],
+      photoPath:['']
     });
+  }
+
+  loadDefaultValues(): void {
+    this.employeeForm.setValue({
+      fullName: 'Alfred James',
+      email: 'alfred@gmail.com',
+      skills: {
+        skillName: 'Java',
+        experienceInYears : 3,
+        proficiency: 'Advanced'
+      },
+      gender: 'Male',
+      phoneNumber: '070849500433',
+      contactPreference: 'Email',
+      dateOfBirth: '',
+      department: '',
+      isActive: true,
+      photoPath: ''
+
+    })
   }
 
   saveEmployee(): void {
@@ -58,4 +79,5 @@ export class CreateEmployeeComponent implements OnInit {
   togglePhotoPreview() {
     this.previewPhoto = !this.previewPhoto;
   }
+
 }
